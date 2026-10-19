@@ -89,7 +89,7 @@ ul.notes{margin:0;padding-left:20px;display:grid;gap:8px}
 .early{margin:8px 0 0;padding:10px 14px;border:1px solid var(--warn);background:var(--warnbg);border-radius:12px;font-size:14px;color:var(--fg)}
 @media print{.cmpw{display:none}}
 .cmpw[hidden]{display:none}
-</style>
+.pdfb{margin-left:auto;text-decoration:none}.pdfb[aria-disabled="true"]{opacity:.5;cursor:not-allowed;pointer-events:none}@media(max-width:640px){.pdfb{margin-left:0}}</style>
 </head>
 <body>
 <div class="wrap">
@@ -103,6 +103,7 @@ ul.notes{margin:0;padding-left:20px;display:grid;gap:8px}
     <div class="seg yr" id="yr" role="group" aria-label="ปีงบประมาณ"></div>
     <label class="cmpw" id="cmpw"><input type="checkbox" id="cmp"> เทียบกับปีก่อน</label>
     <div class="seg" role="group" aria-label="มุมมองข้อมูล"><button data-view="hosp" aria-pressed="false">รายโรงพยาบาล</button><button data-view="dist" aria-pressed="true">รายอำเภอ</button></div>
+    <a class="btn pdfb" id="pdf" target="_blank" rel="noopener">PDF สรุปผู้บริหาร</a>
   </div>
   <nav class="nav"><a href="#kpi">ภาพรวมจังหวัด</a><a href="#rank">จัดอันดับ</a><a href="#matrix">ตารางรวม</a><a href="#qtr">รายไตรมาส</a><a href="#notes">ข้อควรระวัง</a></nav>
 </header>
@@ -173,6 +174,7 @@ function render(){
   document.title=`การตรวจทางห้องปฏิบัติการทางการแพทย์อย่างสมเหตุผล (RLU) ปีงบ ${year}`;
   $('#sub').textContent=`Rational Laboratory Use ในผู้ป่วยเบาหวาน จังหวัดพิจิตร · ปีงบประมาณ ${year} (${FY[year]}) · ข้อมูล ณ ${asof} · ที่มา HDC กระทรวงสาธารณสุข ข้อ 19–25`;
   $('#src').textContent=`ที่มา: ระบบคลังข้อมูลด้านการแพทย์และสุขภาพ (HDC) กระทรวงสาธารณสุข · รายงานมาตรฐาน หมวดการเข้าถึงบริการ › การใช้บริการสาธารณสุข · ปีงบประมาณ ${year} · คัดลอกเมื่อ ${asof}`;
+  {const a=$('#pdf');if(DB[year]){a.href='https://sarassoo1122-commits.github.io/phichit-rlu-2569/rlu_'+year+'.pdf';a.removeAttribute('aria-disabled');a.title='เปิด PDF สรุปผู้บริหาร ปีงบประมาณ '+year+' (ข้อมูล ณ '+asof+') ในแท็บใหม่';a.textContent='PDF สรุปผู้บริหาร ปี '+year}else{a.removeAttribute('href');a.setAttribute('aria-disabled','true');a.textContent='PDF ปี '+year+' (รอข้อมูล)'}}
   document.querySelectorAll('.yr button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.year===year)));
   $('#cmpw').hidden=!prevYear;$('#cmp').checked=cmp;
   $('#early').hidden=!(year==='2570');
