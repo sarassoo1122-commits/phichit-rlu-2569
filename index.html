@@ -172,7 +172,7 @@ function matrix(){return names().map(h=>{let fails=0,checked=0;const c={};I.forE
 const dlt=(i,p)=>{if(!cmp||!prevYear)return '';const q=DB[prevYear].P.find(x=>x.ind===i.ind);if(!q)return '';const d=p.pct-q.pct,good=i.dir==='max'?d<0:d>0,z=Math.abs(d)<0.005;return `<div class="cfoot dl"><span>เทียบปี ${prevYear}: ${f2(q.pct)}%</span><span class="${z?'':good?'up':'dn'}">${z?'เท่าเดิม':(d>0?'▲ +':'▼ ')+f2(d)+' จุด'}</span></div>`};
 function render(){
   document.title=`การตรวจทางห้องปฏิบัติการทางการแพทย์อย่างสมเหตุผล (RLU) ปีงบ ${year}`;
-  $('#sub').textContent=`Rational Laboratory Use ในผู้ป่วยเบาหวาน จังหวัดพิจิตร · ปีงบประมาณ ${year} (${FY[year]}) · ข้อมูล ณ ${asof} · ที่มา HDC กระทรวงสาธารณสุข ข้อ 19–25`;
+  $('#sub').textContent=`Rational Laboratory Use · จังหวัดพิจิตร · ปีงบประมาณ ${year} (${FY[year]}) · ข้อมูล ณ ${asof} · ที่มา HDC กระทรวงสาธารณสุข ข้อ 19–25`;
   $('#src').textContent=`ที่มา: ระบบคลังข้อมูลด้านการแพทย์และสุขภาพ (HDC) กระทรวงสาธารณสุข · รายงานมาตรฐาน หมวดการเข้าถึงบริการ › การใช้บริการสาธารณสุข · ปีงบประมาณ ${year} · คัดลอกเมื่อ ${asof}`;
   {const a=$('#pdf');if(DB[year]){a.href='https://sarassoo1122-commits.github.io/phichit-rlu-2569/rlu_'+year+'.pdf';a.removeAttribute('aria-disabled');a.title='เปิด PDF สรุปผู้บริหาร ปีงบประมาณ '+year+' (ข้อมูล ณ '+asof+') ในแท็บใหม่';a.textContent='PDF สรุปผู้บริหาร ปี '+year}else{a.removeAttribute('href');a.setAttribute('aria-disabled','true');a.textContent='PDF ปี '+year+' (รอข้อมูล)'}}
   document.querySelectorAll('.yr button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.year===year)));
